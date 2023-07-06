@@ -42,7 +42,7 @@ const {showEventModal}=useContext(GlobalContext);
   {/* </button> */}
  
 {/* </div> */}
-<div></div>
+
         {flag==true
            ?<Timer/>:""}
           {flagTask &&  <div    class=" flex items-center justify-center p-2">
