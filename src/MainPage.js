@@ -41,7 +41,7 @@ function MainPage() {
     
      <h1 class="p-2 text-xl text-violet-800 font-bold pb-4"><a href='#/App' target='_blank' class="p-2 text-xl text-violet-800 font-bold pb-4 text-decoration-none">App</a></h1> 
      <ContextWrapper>
- <TaskMainPage></TaskMainPage>
+ <TaskMainPage className="m-0"></TaskMainPage>
       </ContextWrapper>
   </div>
   )
