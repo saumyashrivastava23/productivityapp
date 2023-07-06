@@ -1,0 +1,38 @@
+import React from "react";
+
+const GlobalContext=React.createContext({
+    monthIndex:0,
+    setMonthIndex:(index)=>{},
+    smallCalendarMonth:0,
+    setSmallCalendarMonth:(index)=>{},
+    daySelected:null,
+    setDaySelected:(day)=>{},
+    showEventModal:false,
+    setShowEventModal:()=>{},
+    dispatchWebEvent:({type,payload})=>{},
+    dispatchCalEvent:({type,payload})=>{},
+    savedEvents:[],
+    savedWebsites:[],
+    selectedEvent:null,
+    setSelectedEvent:()=>{},
+    selectedWebsite:null,
+    setSelectedWebsite:()=>{},
+    timer:null,
+    setTimer:()=>{},
+    timerFlag:false,
+    setTimerFlag:(flag)=>{},
+    totalTime:0 ,
+    setTotalTime:()=>{},
+    blockStatus:true,
+    setBlockStatus:()=>{},
+    totalTasks:null,
+    setTotalTasks:()=>{},
+    totalDailyTasks:0,
+    setTotalDailyTasks:()=>{},
+    completedTotalTasks:0,
+    setCompletedTotalTasks:()=>{},
+    completedTotalDailyTasks:0,
+    setCompletedTotalDailyTasks:()=>{},
+    
+});
+export default GlobalContext;

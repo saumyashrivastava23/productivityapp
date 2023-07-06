@@ -1,0 +1,90 @@
+import React from 'react'
+import dayjs from 'dayjs'
+import GlobalContext from '../context/GlobalContext';
+import { useState,useEffect,useContext } from 'react';
+import { Link } from 'react-router-dom';
+import {MdCheckBox,MdCheckBoxOutlineBlank} from 'react-icons/md'
+import {AiFillPlayCircle} from 'react-icons/ai'
+import ContextWrapper from '../context/ContextWrapper';
+
+function UpcomingTasks() {
+    const [upcomingTasks, setUpcomingTasks] = useState([]);
+    const {
+      savedEvents,
+      setSelectedEvent,
+      dispatchCalEvent,
+      // setStatus,
+      // status
+    } = useContext(GlobalContext);
+    const [status,setStatus]=useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    useEffect(() => {
+        const events = savedEvents.filter(
+          (evt) =>
+            dayjs(evt.day).format("DD-MM-YY") ===dayjs().format("DD-MM-YY")
+        );
+        // console.log(events);
+        setUpcomingTasks(events);
+      }, [savedEvents]);
+
+
+  return (
+    <div>
+      <ContextWrapper>
+    <div className='pr-10 pl-4 py-2 ml-0 w-fit font-bold  text-md shadow-sm shadow-violet-600 rounded-full mb-1 truncate bg-violet-800 bg-gradient-to-bl from-gray-900 via-purple-900 to-violet-600
+              text-white  rounded-5 shadow-md '>
+       <button className='text-left'
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        
+        Upcoming Tasks</button>
+        </div>
+     {!isOpen && <ul>
+{ upcomingTasks.map((evt, idx) => evt.status && (
+          <li
+            key={idx}
+            onClick={() => setSelectedEvent(evt)}
+            className={`bg-${evt.label}-200 p-1 mr-3 text-white text-sm rounded mb-1 truncate flex`}
+          >
+             <span
+                onClick={() => {
+                  evt.status=status;
+                  dispatchCalEvent({
+                    type: "update",
+                    payload:evt,
+                  });
+                  // setShowEventModal(false);
+                     setStatus(false)
+                   }
+
+                }
+                className="material-icons-outlined text-violet-400 cursor-pointer m-2 justify-center"
+              >
+            
+             { !(evt.hour>0 || evt.minutes>0 ||evt.seconds>0)&& <MdCheckBoxOutlineBlank className='justify-center w-6 h-6 hover:scale-125'/> }
+             {(evt.hour>0 || evt.minutes>0 ||evt.seconds>0) && evt.status &&
+              <Link to="/Time"   
+       state={{selectedEvent:evt,times:evt.hours*3600+evt.minutes*60+evt.seconds}}><AiFillPlayCircle className='justify-center w-6 h-6 hover:scale-125'>
+              
+       </AiFillPlayCircle></Link>}
+             
+              </span>  
+              <span className='m-1 justify-center '> 
+              <span className='text-sm mx-2'> {
+              evt.title }</span>
+              {evt.hours===0?"":evt.hours}{evt.hours===0?"":" hrs "}
+              {evt.hours===0 && evt.minutes===0?"":" mins "}{evt.hours===0 && evt.minutes===0?"":" mins "} 
+              {evt.hours===0 && evt.minutes===0 &&evt.seconds===0?"":evt.seconds}
+              {evt.hours===0 && evt.minutes===0 &&evt.seconds===0?"":" secs"}
+            
+            { }</span>
+           
+          </li>
+        ))}
+        </ul>}
+        </ContextWrapper>
+    </div>
+  )
+}
+
+export default UpcomingTasks
